@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using CommandDotNet;
 using MetaApp.Console.Controllers;
 using MetaApp.DataContracts.Domain;
 using MetaApp.Infrastructure.Contracts;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MetaApp.Console.View
 {
@@ -38,11 +37,14 @@ namespace MetaApp.Console.View
         {
             var headerValues = tableHeaders.Select(x => $"{x,DefaultCellSpace}");
             var header = string.Join('|', headerValues);
+            var line = $"|{string.Join("", header.Select(x => "_")),60}|";
 
+            console.Clear();
             console.SetCursorPosition(0, 0);
+            console.WriteLine($"Last updated on {DateTime.Now}");
+            console.WriteLine(line);
             console.WriteLine($"|{header}|");
-            console.WriteLine(
-                $"|{string.Join("", header.Select(x => "_")),60}|");
+            console.WriteLine(line);
 
             messageQueue.Dequeue<WeatherDataModel>((model) =>
             {

@@ -19,7 +19,7 @@ namespace MetaApp.Console.Controllers
         private readonly ILogger<WeatherCommandController> logger;
 
         public const string CommandName = "weather";
-        private readonly double getWeatherRefreshRate = TimeSpan.FromSeconds(10).TotalMilliseconds;
+        private readonly int getWeatherRefreshRateInSeconds = 30;
 
         public WeatherCommandController(IMediator mediator, 
             IConsoleViewPrinter consoleViewPrinter, 
@@ -33,7 +33,7 @@ namespace MetaApp.Console.Controllers
         [DefaultCommand] 
         [Command( Description = "Gets weather data for cities",
             UsageLines = new[] {"weather --city city1,city2,...,cityn"})]
-        public void GetWeatherData(GetWeatherDataRequest request, CancellationToken cancellationToken)
+        public void GetWeatherData(GetWeatherDataRequest request, CancellationToken cancellationToken, IConsole console)
         {
             logger.LogInformation($"{CommandName} has started");
 
@@ -54,7 +54,7 @@ namespace MetaApp.Console.Controllers
 
                 consoleViewPrinter.PrintView(CommandName, cancellationToken);
 
-            }, getWeatherRefreshRate);
+            }, TimeSpan.FromSeconds(getWeatherRefreshRateInSeconds).TotalMilliseconds);
 
             this.ExitOnCancelKeyPress(cancellationToken);
         }
