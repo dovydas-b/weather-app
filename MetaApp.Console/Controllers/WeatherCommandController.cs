@@ -33,12 +33,14 @@ namespace MetaApp.Console.Controllers
         [DefaultCommand] 
         [Command( Description = "Gets weather data for cities",
             UsageLines = new[] {"weather --city city1,city2,...,cityn"})]
-        public void GetWeatherData(GetWeatherDataRequest request, CancellationToken cancellationToken, IConsole console)
+        public void GetWeatherData(GetWeatherDataRequest request, CancellationToken cancellationToken)
         {
             logger.LogInformation($"{CommandName} has started");
 
             Utils.CreateRecurringAction(() =>
             {
+                consoleViewPrinter.PrintView(CommandName, cancellationToken);
+
                 request.Cities
                     .Distinct()
                     .AsParallel()
@@ -51,8 +53,6 @@ namespace MetaApp.Console.Controllers
                             CityName = city
                         }, cancellationToken);
                     });
-
-                consoleViewPrinter.PrintView(CommandName, cancellationToken);
 
             }, TimeSpan.FromSeconds(getWeatherRefreshRateInSeconds).TotalMilliseconds);
 

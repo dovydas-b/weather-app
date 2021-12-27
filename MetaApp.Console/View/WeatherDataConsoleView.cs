@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MetaApp.DataContracts;
 
 namespace MetaApp.Console.View
 {
@@ -46,14 +47,13 @@ namespace MetaApp.Console.View
             console.WriteLine($"|{header}|");
             console.WriteLine(line);
 
-            messageQueue.Dequeue<WeatherDataModel>((model) =>
+            messageQueue.Dequeue<WeatherDto>((model) =>
             {
                 console.WriteLine(
                     $"|{model.City,DefaultCellSpace}|" +
-                    $"{model.Weather,DefaultCellSpace}|" +
-                    $"{model.Temperature,DefaultCellSpace}|" +
-                    $"{model.Precipitation,DefaultCellSpace}|");
-
+                    $"{model.Weather ?? "-",DefaultCellSpace}|" +
+                    $"{model.Temperature?.ToString() ?? "-",DefaultCellSpace}|" +
+                    $"{model.Precipitation?.ToString() ?? "-",DefaultCellSpace}|");
             }, cancellationToken);
 
             return Task.CompletedTask;

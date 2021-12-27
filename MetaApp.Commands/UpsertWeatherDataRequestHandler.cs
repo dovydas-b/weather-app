@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MetaApp.DataContracts;
 using MetaApp.DataContracts.Repository;
 using MetaApp.Infrastructure.Contracts;
 using Microsoft.Extensions.Logging;
@@ -34,25 +35,21 @@ namespace MetaApp.Commands
         public async Task<UpsertWeatherDataHandlerResponse> Handle(UpsertWeatherDataHandlerRequest request,
             CancellationToken cancellationToken)
         {
-            var citiesResponse = await weatherExternalRepository.GetAvailableCities(cancellationToken);
-
-            if (!citiesResponse.IsSuccess)
-            {
-                return new UpsertWeatherDataHandlerResponse
-                {
-                    IsSuccess = false
-                };
-            }
-
-            if (citiesResponse.Data.All(x => x != request.CityName))
-            {
-                return new UpsertWeatherDataHandlerResponse
-                {
-                    IsSuccess = false
-                };
-            }
-
             var weatherResponse = await weatherExternalRepository.GetWeatherForCity(request.CityName, cancellationToken);
+
+            if (!weatherResponse.IsSuccess)
+            {
+                messageQueue.Queue(new WeatherDto
+                {
+                    City = request.CityName,
+                }, cancellationToken);
+
+                logger.LogWarning($"City not found {request.CityName}");
+                return new UpsertWeatherDataHandlerResponse
+                {
+                    IsSuccess = false
+                };
+            }
 
             var weatherDataModel = new WeatherDataModel
             {
@@ -71,13 +68,20 @@ namespace MetaApp.Commands
 
             if (!upsertResponse.IsSuccess)
             {
+                logger.LogWarning($"Upsert City failed {request.CityName}");
                 return new UpsertWeatherDataHandlerResponse
                 {
                     IsSuccess = false
                 };
             }
 
-            messageQueue.Queue(weatherDataModel, cancellationToken);
+            messageQueue.Queue(new WeatherDto
+            {
+                Weather = weatherDataModel.Weather,
+                City = weatherDataModel.City,
+                Precipitation = weatherDataModel.Precipitation,
+                Temperature = weatherDataModel.Temperature
+            }, cancellationToken);
 
             return new UpsertWeatherDataHandlerResponse
             {
