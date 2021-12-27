@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 
 namespace MetaApp.Console.Controllers
 {
+    [Command(Description = "Gets weather data for cities",
+        UsageLines = new[] { "weather --city city1,city2,...,cityn" })]
     public class WeatherCommandController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -31,8 +33,6 @@ namespace MetaApp.Console.Controllers
         }
 
         [DefaultCommand] 
-        [Command( Description = "Gets weather data for cities",
-            UsageLines = new[] {"weather --city city1,city2,...,cityn"})]
         public void GetWeatherData(GetWeatherDataRequest request, CancellationToken cancellationToken)
         {
             logger.LogInformation($"{CommandName} has started");
