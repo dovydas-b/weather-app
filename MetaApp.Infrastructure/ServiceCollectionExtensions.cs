@@ -1,5 +1,4 @@
 ﻿using MetaApp.DataContracts.Configuration;
-using MetaApp.Infrastructure.ConsolePrinter;
 using MetaApp.Infrastructure.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

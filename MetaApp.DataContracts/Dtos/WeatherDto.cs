@@ -1,4 +1,4 @@
-﻿namespace MetaApp.DataContracts
+﻿namespace MetaApp.DataContracts.Dtos
 {
     public class WeatherDto
     {

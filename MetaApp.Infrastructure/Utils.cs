@@ -16,6 +16,7 @@ namespace MetaApp.Infrastructure
                 AutoReset = true,
                 Interval = interval,
             };
+
             timer.Elapsed += (_, _) => action();
             timer.Start();
         }

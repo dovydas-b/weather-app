@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using CommandDotNet;
 
-namespace MetaApp.Console.RequestModel
+namespace MetaApp.RequestModel
 {
     public class GetWeatherDataRequest : IArgumentModel
     {

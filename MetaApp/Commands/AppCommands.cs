@@ -1,7 +1,7 @@
 ﻿using CommandDotNet;
-using MetaApp.Console.Controllers;
+using MetaApp.Controllers;
 
-namespace MetaApp.Console.Commands
+namespace MetaApp.Commands
 {
     public class AppCommands
     {

@@ -2,19 +2,15 @@
 using CommandDotNet;
 using CommandDotNet.Rendering;
 using MetaApp.Commands;
-using MetaApp.Console.Commands;
-using MetaApp.Console.Controllers;
-using MetaApp.DataContracts.Configuration;
+using MetaApp.Controllers;
 using MetaApp.Infrastructure;
-using MetaApp.Infrastructure.Contracts;
 using MetaApp.Presentation;
 using MetaApp.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace MetaApp.Console
+namespace MetaApp
 {
     public static class Startup
     {

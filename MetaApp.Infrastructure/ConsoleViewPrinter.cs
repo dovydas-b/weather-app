@@ -1,11 +1,11 @@
-﻿using MetaApp.Infrastructure.Contracts;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MetaApp.Infrastructure.Contracts;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace MetaApp.Infrastructure.ConsolePrinter
+namespace MetaApp.Infrastructure
 {
     public class ConsoleViewPrinter : IConsoleViewPrinter
     {

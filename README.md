@@ -1,7 +1,7 @@
 # weather-app
 
 
-Usage: MetaApp.Console.exe [command] [options]
+Usage: MetaApp.exe [command] [options]
 
 Options:
 

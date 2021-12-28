@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MetaApp.DataContracts.Dtos;
+using MetaApp.Infrastructure.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MetaApp.DataContracts;
-using MetaApp.Infrastructure.Contracts;
 
 namespace MetaApp.Presentation
 {

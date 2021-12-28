@@ -3,14 +3,14 @@ using System.Linq;
 using System.Threading;
 using CommandDotNet;
 using MediatR;
-using MetaApp.Console.RequestModel;
 using MetaApp.DataContracts.Command.Request;
 using MetaApp.DataContracts.Command.Response;
 using MetaApp.Infrastructure;
 using MetaApp.Infrastructure.Contracts;
+using MetaApp.RequestModel;
 using Microsoft.Extensions.Logging;
 
-namespace MetaApp.Console.Controllers
+namespace MetaApp.Controllers
 {
     [Command(Description = "Gets weather data for city",
         UsageLines = new[] { "weather --city city1,city2,...,cityn" })]

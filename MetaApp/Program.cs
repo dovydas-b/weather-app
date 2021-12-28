@@ -2,12 +2,11 @@
 using CommandDotNet;
 using CommandDotNet.DataAnnotations;
 using CommandDotNet.IoC.MicrosoftDependencyInjection;
-using MetaApp.Console.Commands;
-using MetaApp.Console.Controllers;
+using MetaApp.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace MetaApp.Console
+namespace MetaApp
 {
     class Program
     {
