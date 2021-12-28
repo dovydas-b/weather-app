@@ -1,15 +1,14 @@
 ﻿using MediatR;
+using MetaApp.DataContracts;
 using MetaApp.DataContracts.Command.Request;
 using MetaApp.DataContracts.Command.Response;
 using MetaApp.DataContracts.Domain;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MetaApp.DataContracts;
 using MetaApp.DataContracts.Repository;
 using MetaApp.Infrastructure.Contracts;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MetaApp.Commands
 {
@@ -45,6 +44,7 @@ namespace MetaApp.Commands
                 }, cancellationToken);
 
                 logger.LogWarning($"City not found {request.CityName}");
+
                 return new UpsertWeatherDataHandlerResponse
                 {
                     IsSuccess = false
@@ -62,13 +62,12 @@ namespace MetaApp.Commands
 
             var cityWeatherDataResponse = await weatherRepository.GetByCity(request.CityName);
 
-            var upsertResponse = cityWeatherDataResponse.IsSuccess
+            var upsertRepositoryResponse = cityWeatherDataResponse.IsSuccess
                 ? await weatherRepository.Update(cityWeatherDataResponse.Data.Id, weatherDataModel)
                 : await weatherRepository.Insert(weatherDataModel);
 
-            if (!upsertResponse.IsSuccess)
+            if (!upsertRepositoryResponse.IsSuccess)
             {
-                logger.LogWarning($"Upsert City failed {request.CityName}");
                 return new UpsertWeatherDataHandlerResponse
                 {
                     IsSuccess = false
@@ -85,7 +84,7 @@ namespace MetaApp.Commands
 
             return new UpsertWeatherDataHandlerResponse
             {
-                Weather = upsertResponse.Data,
+                Weather = upsertRepositoryResponse.Data,
                 IsSuccess = true
             };
         }

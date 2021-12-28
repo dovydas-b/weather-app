@@ -4,10 +4,10 @@ using CommandDotNet.Rendering;
 using MetaApp.Commands;
 using MetaApp.Console.Commands;
 using MetaApp.Console.Controllers;
-using MetaApp.Console.View;
 using MetaApp.DataContracts.Configuration;
 using MetaApp.Infrastructure;
 using MetaApp.Infrastructure.Contracts;
+using MetaApp.Presentation;
 using MetaApp.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,10 +42,7 @@ namespace MetaApp.Console
                 .AddSingleton(typeof(WeatherCommandController))
                 .AddSingleton<IConsole, SystemConsole>()
                 .AddConsoleViewPrinter()
-                .AddSingleton<IConsoleView, WeatherDataConsoleView>();
-
-            serviceCollection.Configure<WeatherApiConfiguration>(config
-                .GetSection(nameof(WeatherApiConfiguration)));
+                .RegisterViews();
         }
     }
 }

@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetaApp.Commands\MetaApp.Commands.csproj" />
-    <ProjectReference Include="..\MetaApp.Infrastructure\MetaApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\MetaApp.Presentation\MetaApp.Presentation.csproj" />
   </ItemGroup>
 
 

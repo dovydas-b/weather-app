@@ -1,22 +1,18 @@
 ﻿using System;
-using CommandDotNet;
-using MetaApp.Console.Controllers;
-using MetaApp.DataContracts.Domain;
-using MetaApp.Infrastructure.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MetaApp.DataContracts;
+using MetaApp.Infrastructure.Contracts;
 
-namespace MetaApp.Console.View
+namespace MetaApp.Presentation
 {
     public class WeatherDataConsoleView : IConsoleView
     {
-        public string Type { get; set; } = WeatherCommandController.CommandName;
+        public string Type { get; set; } = "weather";
 
         private readonly IMessageQueue messageQueue;
-        private readonly IConsole console;
 
         private const int DefaultCellSpace = -15;
 
@@ -28,10 +24,9 @@ namespace MetaApp.Console.View
             "Precipitation"
         };
 
-        public WeatherDataConsoleView(IMessageQueue messageQueue, IConsole console)
+        public WeatherDataConsoleView(IMessageQueue messageQueue)
         {
             this.messageQueue = messageQueue;
-            this.console = console;
         }
 
         public Task PrintView(CancellationToken cancellationToken)
@@ -40,16 +35,16 @@ namespace MetaApp.Console.View
             var header = string.Join('|', headerValues);
             var line = $"|{string.Join("", header.Select(x => "_")),60}|";
 
-            console.Clear();
-            console.SetCursorPosition(0, 0);
-            console.WriteLine($"Last updated on {DateTime.Now}");
-            console.WriteLine(line);
-            console.WriteLine($"|{header}|");
-            console.WriteLine(line);
+            Console.Clear();
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine($"Last updated on {DateTime.Now}");
+            Console.WriteLine(line);
+            Console.WriteLine($"|{header}|");
+            Console.WriteLine(line);
 
             messageQueue.Dequeue<WeatherDto>((model) =>
             {
-                console.WriteLine(
+                Console.WriteLine(
                     $"|{model.City,DefaultCellSpace}|" +
                     $"{model.Weather ?? "-",DefaultCellSpace}|" +
                     $"{model.Temperature?.ToString() ?? "-",DefaultCellSpace}|" +

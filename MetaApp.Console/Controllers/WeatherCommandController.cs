@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MetaApp.Console.Controllers
 {
-    [Command(Description = "Gets weather data for cities",
+    [Command(Description = "Gets weather data for city",
         UsageLines = new[] { "weather --city city1,city2,...,cityn" })]
     public class WeatherCommandController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace MetaApp.Console.Controllers
             this.logger = logger;
         }
 
-        [DefaultCommand] 
+        [DefaultCommand]
         public void GetWeatherData(GetWeatherDataRequest request, CancellationToken cancellationToken)
         {
             logger.LogInformation($"{CommandName} has started");
@@ -58,6 +58,5 @@ namespace MetaApp.Console.Controllers
 
             this.ExitOnCancelKeyPress(cancellationToken);
         }
-
     }
 }

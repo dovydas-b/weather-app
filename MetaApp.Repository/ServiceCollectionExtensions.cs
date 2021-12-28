@@ -25,7 +25,7 @@ namespace MetaApp.Repository
                 .AddScoped<IWeatherInternalRepository, WeatherInternalRepository>(); 
 
             serviceCollection
-                .AddWeatherApi()
+                .AddWeatherApi(configuration)
                 .AddSingleton<IWeatherExternalRepository, WeatherExternalRepository>();
 
             return serviceCollection;

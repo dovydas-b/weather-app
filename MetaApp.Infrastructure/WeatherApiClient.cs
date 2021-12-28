@@ -1,12 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MetaApp.DataContracts;
-using MetaApp.DataContracts.Api;
+﻿using MetaApp.DataContracts.Api;
 using MetaApp.DataContracts.Configuration;
 using MetaApp.DataContracts.Repository;
 using MetaApp.Infrastructure.Contracts;
 using Microsoft.Extensions.Options;
 using RestSharp;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MetaApp.Infrastructure
 {

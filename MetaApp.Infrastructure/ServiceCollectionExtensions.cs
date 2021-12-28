@@ -1,5 +1,7 @@
-﻿using MetaApp.Infrastructure.ConsolePrinter;
+﻿using MetaApp.DataContracts.Configuration;
+using MetaApp.Infrastructure.ConsolePrinter;
 using MetaApp.Infrastructure.Contracts;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MetaApp.Infrastructure
@@ -13,8 +15,11 @@ namespace MetaApp.Infrastructure
             return serviceCollection;
         }
 
-        public static IServiceCollection AddWeatherApi(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddWeatherApi(this IServiceCollection serviceCollection, IConfiguration config)
         {
+            serviceCollection.Configure<WeatherApiConfiguration>(config
+                .GetSection(nameof(WeatherApiConfiguration)));
+
             serviceCollection.AddSingleton<IWeatherApiClient, WeatherApiClient>();
 
             return serviceCollection;
